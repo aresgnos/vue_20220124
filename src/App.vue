@@ -12,7 +12,9 @@
       @select="handleSelect">
 
       <el-menu-item index="/">Home</el-menu-item>
-      <el-menu-item index="/login">Login</el-menu-item>
+      <el-menu-item v-show="logged === false" index="/login">Login</el-menu-item>
+      <el-menu-item v-show="logged === true" index="/logout">Logout</el-menu-item>
+      <el-menu-item v-show="logged === true" index="/mypage">Mypage</el-menu-item>
       <el-menu-item index="/board">Board</el-menu-item>
       <el-menu-item index="/admin">Admin</el-menu-item>
       <el-menu-item index="/join">Join</el-menu-item>
@@ -23,12 +25,14 @@
     {{menu}}, {{logged}}
 
     <router-view></router-view>
+
+
   </div>
 </template>
 
 <script>
-import { computed, reactive } from 'vue';
-import {useStore} from 'vuex';
+import { computed, reactive, onMounted } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
   setup () {
@@ -36,9 +40,15 @@ export default {
     const store = useStore();
 
     // store값 가져오기
+    // store의 menu 값 실시간으로 확인
     // 마지막으로 방문한 페이지를 session저장소에 보관 후에 반환
     const menu = computed(() =>{
       return store.getters.getMenu
+    });
+
+    // store의 logged값 실시간으로 확인
+    const logged = computed(() => {
+      return store.getters.getLogged
     });
 
     // state 변수 생성
@@ -46,22 +56,31 @@ export default {
     const state = reactive({
       activeIndex : menu
     });
-
-    const logged = computed(() => {
-      return store.getters.getLogged
+    
+    onMounted( async () => { //F5 새로고침
+        // 저장소에 있는 TOKEN값을 읽어서 존재 유무
+        // TOKEN을 추가하는 시점 = 로그인이 완료 됐을 때
+        // TOKEN의 값을 제거하는 시점 = 로그아웃 됐을 때
+        if(sessionStorage.getItem("TOKEN") === null) {
+          // store의 logged 변수값을 false
+          store.commit("setLogged", false);
+        }
+        else{
+          store.commit("setLogged", true);
+        }
     });
 
-    // store값 변경하기
     const handleSelect = (idx) => {
-      console.log(idx);
       store.commit("setMenu", idx);
-
     }
-    
+
+    /*
     // store의 state 변수가 변경되는 시점을 바로 알 수 있다.
+    // 변화 감지를 확인해보는 것
     store.subscribe((mutation, state) => {
       console.log('store.subscribe', mutation, state);
     })
+    */
 
     return {menu, logged, handleSelect, state}
   }
