@@ -14,6 +14,7 @@
       <el-menu-item index="/">Home</el-menu-item>
       <el-menu-item v-show="logged === false" index="/login">Login</el-menu-item>
       <el-menu-item v-show="logged === true" index="/logout">Logout</el-menu-item>
+      <el-menu-item v-show="logged === true" index="/seller">Seller</el-menu-item>
       <el-menu-item v-show="logged === true" index="/mypage">Mypage</el-menu-item>
       <el-menu-item index="/board">Board</el-menu-item>
       <el-menu-item index="/admin">Admin</el-menu-item>

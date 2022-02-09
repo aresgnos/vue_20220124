@@ -8,6 +8,8 @@ import Board from '@/components/Board.vue';
 import Login from '@/components/Login.vue';
 import Logout from '@/components/Logout.vue';
 import Mypage from '@/components/Mypage.vue';
+import Seller from '@/components/Seller.vue';
+import Menu1Insert from '@/components/seller/Menu1Insert.vue';
 import Admin from '@/components/Admin.vue';
 import Join from '@/components/Join.vue';
 import BoardContent from '@/components/BoardContent.vue';
@@ -26,6 +28,8 @@ const routes = [
     { path : '/logout', name : "Logout", component:Logout },
     { path : '/mypage', name : "Mypage", component:Mypage },
     { path : '/board', name : "Board", component:Board },
+    { path : '/seller', name : "Seller", component:Seller },
+    { path : '/menu1insert', name : "Menu1Insert", component:Menu1Insert },
     { path : '/admin', name : "Admin", component:Admin },
     { path : '/join', name : "Join", component:Join },
     { path : '/boardcontent', name : "BoardContent", component:BoardContent },
