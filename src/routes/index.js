@@ -10,6 +10,7 @@ import Logout from '@/components/Logout.vue';
 import Mypage from '@/components/Mypage.vue';
 import Seller from '@/components/Seller.vue';
 import Menu1Insert from '@/components/seller/Menu1Insert.vue';
+import Menu1Detail from '@/components/seller/Menu1Detail.vue';
 import Admin from '@/components/Admin.vue';
 import Join from '@/components/Join.vue';
 import BoardContent from '@/components/BoardContent.vue';
@@ -30,6 +31,7 @@ const routes = [
     { path : '/board', name : "Board", component:Board },
     { path : '/seller', name : "Seller", component:Seller },
     { path : '/menu1insert', name : "Menu1Insert", component:Menu1Insert },
+    { path : '/menu1detail', name : "Menu1Detail", component:Menu1Detail },
     { path : '/admin', name : "Admin", component:Admin },
     { path : '/join', name : "Join", component:Join },
     { path : '/boardcontent', name : "BoardContent", component:BoardContent },

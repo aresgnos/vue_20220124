@@ -23,10 +23,14 @@
 <script>
 import { reactive } from 'vue'
 import axios from 'axios'
-    export default {
+import { useRouter } from 'vue-router';
+
+export default {
         setup (){
-            
-         const state = reactive({
+        
+        const router = useRouter();
+
+        const state = reactive({
                 cnt : 2,
                 token : sessionStorage.getItem("TOKEN"),
                 items : [
@@ -49,8 +53,8 @@ import axios from 'axios'
             });
 
             const handleAdd = () =>{
-                state.cnt++;
-                //state.items의 마지막에 {  }것을 추가
+                state.cnt++; //1씩 증가
+                //state.items의 마지막에 {  }것을 추가 (뒤쪽에 하나씩 붙음)
                 state.items.push({
                             image: '',
                             name : '가죽',
@@ -63,15 +67,16 @@ import axios from 'axios'
             const handleSub = () =>{
                 if( state.cnt - 1 > 2 ){ //1개를 뺐을 때 2이상이면 = state.cnt >=3 3보다 클 때 뺴라!!
                     state.cnt--; // 실제적으로 숫자를 뺌
-                    state.items.pop(); // state.items의 마지막에 {  }것을 제거함.
+                    state.items.pop(); // state.items의 마지막에 {  }것을 제거함. (뒤쪽부터 하나씩 제거)
                 }
             }
 
             // 파일을 첨부하거나 또는 취소하거나 할 때 가능
             const handleImage = ( e, idx ) => {
-                if(e.target.files[0]){ // 첨부했을 경우
                 console.log(e); // 첨부한 파일의 정보
                 console.log(idx); // 위치
+
+                if(e.target.files[0]){ // 첨부했을 경우
                 state.items[idx].image = e.target.files[0];
                 }
                 else { // 첨부하지 않을 경우
@@ -97,6 +102,11 @@ import axios from 'axios'
         
                 const response = await axios.post(url, body, {headers});
                 console.log(response.data);
+
+                if(response.data.status===200) {
+                    alert('등록되었습니다.');
+                    router.push({name:"Seller"});
+                }
             }
 
             return{state, handleSub, handleAdd, handleInsertAction, handleImage}
