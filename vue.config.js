@@ -19,6 +19,12 @@ module.exports = {
                 target          : 'http://localhost:3000',
                 changeOrigin    : true,
                 logLevel        : 'debug'
+            },
+
+            '/shop':{
+                target          : 'http://localhost:3000',
+                changeOrigin    : true,
+                logLevel        : 'debug'
             }
         },
         // port 번호 바꿀 수 있음
