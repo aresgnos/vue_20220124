@@ -1,10 +1,12 @@
 <template>
     <div>
         <h3>물품 상세화면</h3>
-            <!-- 물품명 : {{state.item.name}}
-            물품내용 : {{state.item.content}}
-            가격 : {{state.item.price}}
-            수량 : {{state.item.quantity}} -->
+        <div v-if = "state.items">
+            물품명 : {{state.items.name}}
+            물품내용 : {{state.items.content}}
+            가격 : {{state.items.price}}
+            수량 : {{state.items.quantity}}
+        </div>
     </div>
 </template>
 
