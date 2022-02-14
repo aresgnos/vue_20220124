@@ -29,6 +29,7 @@ import { useStore } from 'vuex';
                 token : sessionStorage.getItem("TOKEN")
             })
 
+            
             const handleDeleteAction = async() => {
                 if(confirm('정말 탈퇴할까요?')) {
                 const url = `/member/delete`;

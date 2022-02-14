@@ -40,11 +40,20 @@ export default {
                 sessionStorage.setItem("TOKEN", response.data.token);
                 alert('로그인되었습니다.');
 
-                // 1. 주소창만 바뀜
-                router.push({name:"Home"});
+                const curl = sessionStorage.getItem("CURL");
+                if(curl === null){
+                    // 1. 주소창만 바뀜
+                    router.push({name:"Home"});
+                    // 2. 메뉴 활성화
+                    store.commit("setMenu", "/");
+                }
+                else { // 이동하고자하는 페이지가 존재하면
+                    // string => object로 변경
+                    const query = JSON.parse(sessionStorage.getItem("CURL_QUERY"));
+                    const params = JSON.parse(sessionStorage.getItem("CURL_PARAMS"));
 
-                // 2. 메뉴 활성화
-                store.commit("setMenu", "/");
+                    router.push({name:curl, query:query, params:params});
+                }
 
                 // 3. 로그인 상태
                 store.commit("setLogged", true);

@@ -1,6 +1,10 @@
 <template>
     <div>
         <h3>Home</h3>
+        <div v-if="state.member">
+            {{state.member.email}}
+            {{state.member.name}}
+        </div>
 
         <vueper-slides
             class="no-shadow"
@@ -76,8 +80,10 @@ export default {
                 { image:require('../assets/3.jpg')},
                 { image:require('../assets/6.jpg')},
                 ],
-            page : 1
-        });
+            page : 1,
+            token :  sessionStorage.getItem("TOKEN"),
+            member : ''
+            });
 
         // 메인 화면
         const handleLoadData = async () => {
@@ -111,16 +117,30 @@ export default {
             }
         }
 
+        const handleEmail = async () =>{
+            const url = `/member/validation`;
+            const headers = {
+                "Content-Type":"applicaion/json",
+                "token":state.token }
+            const response = await axios.get(url, {headers});
+            console.log(response.data);
+            if(response.data.status===200){
+                state.member = response.data.result;
+                console.log(state.member);
+            }
+        }
+
         const handleDetailPage = (code) => {
             router.push({name:"ItemContent", query:{code:code}});
         }
 
         onMounted (async()=>{
             await handleLoadData();
+            await handleEmail();
         })
         
 
-        return {state, handleDetailPage}
+        return {state, handleDetailPage, handleEmail}
     }
 }
 </script>
