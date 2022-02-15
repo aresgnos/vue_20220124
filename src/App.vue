@@ -19,9 +19,9 @@
       <el-menu-item index="/board">Board</el-menu-item>
       <el-menu-item index="/admin">Admin</el-menu-item>
       <el-menu-item index="/join">Join</el-menu-item>
-      
-
     </el-menu>
+
+    <div v-if="logged === true">{{uid}}, {{uname}}님 로그인</div> 
 
     {{menu}}, {{logged}}
 
@@ -52,6 +52,15 @@ export default {
       return store.getters.getLogged
     });
 
+    const uid = computed(() => {
+      return store.getters.getUid
+    });
+
+    const uname = computed(() => {
+      return store.getters.getUname
+    });
+
+
     // state 변수 생성
     // store에서 읽은 메뉴값으로 초기값 세팅
     const state = reactive({
@@ -67,9 +76,14 @@ export default {
           store.commit("setLogged", false);
         }
         else{
+          // mutations을 호출하는 경우
           store.commit("setLogged", true);
-        }
-    });
+
+          // actions를 호출하는 경우
+          store.dispatch("handleData", {});
+        } 
+    }); 
+    // dispatch = 액션호출
 
     const handleSelect = (idx) => {
       store.commit("setMenu", idx);
@@ -83,7 +97,7 @@ export default {
     })
     */
 
-    return {menu, logged, handleSelect, state}
+    return {menu, logged, handleSelect, state, uname, uid}
   }
 }
 </script>
