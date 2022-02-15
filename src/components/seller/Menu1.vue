@@ -171,7 +171,8 @@ import { useRouter } from 'vue-router'; // 페이지 이동시킴
                 await handleDeleteAction(state.chk);
 
             }
-               
+            
+            // 물품 전체 조회
             // 메소드를 만들어서 생명주기에 호출(그래야 다른 곳에서도 쓸 수 있음)
             const handleLoadData = async() =>{
                 const url = `/seller/selectlist`;

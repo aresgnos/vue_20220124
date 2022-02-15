@@ -20,7 +20,7 @@ const stores= createStore({
         getUid(state) {
             return state.uid;
         },
-        getUname(state ){
+        getUname(state){
             return state.uname;
         },
         getMenu(state) {
