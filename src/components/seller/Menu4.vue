@@ -33,6 +33,7 @@ export default {
                 labels : [], //라벨
                 datasets : [
                     { 
+                        label : '상품별 주문수량',
                         backgroundColor: [], //색상
                         data: [] //데이터
                     },
