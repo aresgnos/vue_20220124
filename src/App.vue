@@ -16,9 +16,11 @@
       <el-menu-item v-show="logged === true" index="/logout">Logout</el-menu-item>
       <el-menu-item v-show="logged === true" index="/seller">Seller</el-menu-item>
       <el-menu-item v-show="logged === true" index="/mypage">Mypage</el-menu-item>
+      <el-menu-item index="/join">Join</el-menu-item>
+      <el-menu-item index="/cart">Cart</el-menu-item>
       <el-menu-item index="/board">Board</el-menu-item>
       <el-menu-item index="/admin">Admin</el-menu-item>
-      <el-menu-item index="/join">Join</el-menu-item>
+      
     </el-menu>
 
     <div v-if="logged === true">{{uid}}, {{uname}}님 로그인</div> 

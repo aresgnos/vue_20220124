@@ -15,6 +15,8 @@
                 </option>
             </select> <br />
             <button @click="handleOrderAciton">주문하기</button>
+            <button @click="handleCartAciton">장바구니</button>
+            <!-- <button @click="handleCartList">장바구니목록</button> -->
             
         </div>
         
@@ -45,7 +47,30 @@ import axios from 'axios';
                     cnt : state.items.ordercnt
                 }
             });
-        }
+            }
+
+            // 장바구니
+            const handleCartAciton = async() => {
+                const url = `/shop/insertcart`;
+                const headers = {"Content-Type":"application/json"};
+                // 물품번호, 수량, 로그인하지 않은 사용자의 정보
+                const body = {
+                    code : state.items._id,
+                    cnt : state.items.ordercnt
+                }
+
+                const response = await axios.post(url, body, {headers});
+                console.log(response.data);
+            }
+
+            // 장바구니 목록
+            // const handleCartList = async () => {
+            //     const url =`/shop/selectcart`;
+            //     const headers = {"Content-Type":"application/json"};
+            //     const response = await axios.get(url, {headers});
+            //     console.log(response.data);
+
+            // }
 
             onMounted( async()=> {
                 const url = `/shop/selectone?code=${state.code}`;
@@ -58,7 +83,7 @@ import axios from 'axios';
                 }
             })
 
-            return {state, handleOrderAciton}
+            return {state, handleOrderAciton, handleCartAciton}
 
         }
     }

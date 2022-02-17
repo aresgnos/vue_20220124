@@ -19,6 +19,7 @@ import Chart from '@/components/Chart.vue';
 import BoardWrite from '@/components/BoardWrite.vue';
 import BoardUpdate from '@/components/BoardUpdate.vue';
 import Order from '@/components/Order.vue';
+import Cart from '@/components/Cart.vue';
 import Quill from '@/components/Quill.vue';
 
 
@@ -42,6 +43,7 @@ const routes = [
     { path : '/boardwrite', name : "BoardWrite", component:BoardWrite },
     { path : '/boardupdate', name : "BoardUpdate", component:BoardUpdate },
     { path : '/order', name : "Order", component:Order },
+    { path : '/cart', name : "Cart", component:Cart },
     { path : '/quill', name : "Quill", component:Quill },
     
 ]
