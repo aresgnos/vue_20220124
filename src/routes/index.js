@@ -68,8 +68,6 @@ router.beforeEach((to, from, next)=>{
     // console.log('이동 전 페이지 : ', from);
 
     const token = sessionStorage.getItem("TOKEN");
-    console.log(token);
-
 
     // 추가) 토큰이 유효한 상태인지를 주기적으로(그 페이지에 들어갈 때마다) 확인 후에
     // 페이지에 진입하게 해야함.

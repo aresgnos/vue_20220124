@@ -2,28 +2,37 @@
     <div class="style1">
         <h3>회원가입</h3>
         {{ state }}
-        {{ userid }}
-        <el-form :inline="false" :model="state" class="demo-form-inline" style="width:500px">
+        <el-form :inline="false" :model="state" class="demo-form-inline" label-width="120px">
             <el-form-item label="아이디(이메일)">
-            <el-input v-model="state.userid" @keyup="handleEmailCheck"></el-input>
-            <div>{{state.useremailcheck}}</div><br />
+            <el-input v-model="state.userid" style="width:300px;" @keyup="handleEmailCheck" ></el-input>
+            {{state.useremailcheck}}<br />
+            <!-- <el-button type="primary" round @click="handleEmailCheck" style="margin-left:10px;">중복확인</el-button> -->
             </el-form-item>
             <el-form-item label="암호">
-            <el-input v-model="state.userpw"></el-input>
+            <el-input v-model="state.userpw" style="width:300px;"></el-input>
             </el-form-item>
             <el-form-item label="암호확인">
-            <el-input v-model="state.userpw1"></el-input>
+            <el-input v-model="state.userpw1" style="width:300px;"></el-input>
             </el-form-item>
             <el-form-item label="이름">
-            <el-input v-model="state.username"></el-input>
+            <el-input v-model="state.username" style="width:300px;"></el-input>
             </el-form-item>
-            
+            <el-form-item label="권한">
+             <el-select v-model="state.userrole" class="m-2" placeholder="Select" size="large">
+                <el-option value="Customer">구매자</el-option>
+                <el-option value="Seller">판매자</el-option>
+            </el-select>
+            </el-form-item>
+            <el-form-item label="">
+                <el-button type="primary" round @click="handleJoin">회원가입</el-button>
+            </el-form-item>
         </el-form>
-
-        <!-- <input type="text" ref="userid" v-model="state.userid">
-        <input type="text" ref="userpw" v-model="state.userpw"> -->
-
-        <el-button type="primary" round @click="handleJoin">회원가입</el-button>
+        
+        <!-- 권한 :
+        <select v-model="state.userrole">
+            <option value="Customer">고객</option>
+            <option value="Seller">판매자</option>
+        </select><br /> --> 
         
     </div>
 </template>
@@ -44,7 +53,8 @@ export default {
             userpw : '',
             userpw1 : '',
             username : '',
-            useremailcheck : ''
+            useremailcheck : '',
+            userrole : '',
         });
 
         // Low레벨, 변수만 생성 : 오브젝트가 아니지만 변화 감지 가능
@@ -118,7 +128,8 @@ export default {
             const body = { 
                 email : state.userid, 
                 password: state.userpw, 
-                name: state.username
+                name: state.username,
+                role : state.userrole
             };
             const response = await axios.post(url, body, {headers});
             console.log(response.data);

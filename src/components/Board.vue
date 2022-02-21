@@ -2,6 +2,24 @@
 <div>
         <h3>src/components/Board.vue</h3>
 
+        <h3>게시판목록</h3>
+        <!-- <div v-if="state.items">        
+            <el-button type="info" @click="handleWrite" style="margin-right:10px;margin-bottom:10px;float:right">글쓰기</el-button>
+            <el-button type="info" @click="handleLoadData" style="margin-right:10px;margin-bottom:10px;float:right">검색</el-button>
+            <el-input v-model="state.text" @keyup.enter="handleLoadData" placeholder="검색어" 
+                style="width:300px;margin-right:10px;margin-bottom:10px;float:right" />
+
+        <el-table :data="state.items" @row-click="rowClick" style="width: 100%">
+            <el-table-column prop="_id" label="글번호" width="180" />
+            <el-table-column prop="title" label="제목" width="180" />
+            <el-table-column prop="writer" label="작성자" />
+            <el-table-column prop="hit" label="조회수" />
+            <el-table-column prop="regdate" label="작성일자" />
+        </el-table>
+        <el-pagination layout="prev, pager, next" :total="state.total2" 
+            @current-change="currentChange"></el-pagination>
+        </div> -->
+
         <router-link to="/boardwrite">글쓰기</router-link>
 
        <table border="1">
@@ -55,6 +73,10 @@ export default {
                 state.items.result = response.data.rows;
             }
         });
+
+         const handleWrite = () => {
+                router.push({name:""})
+            }
         
         // function handleBoardContent(no) { }
         const handleBoardContent = (no) => {
@@ -63,7 +85,7 @@ export default {
             router.push({name:"BoardContent", query:{no:no}});
         }
 
-        return {state, handleBoardContent}
+        return {state, handleBoardContent, handleWrite}
     },
 
 }

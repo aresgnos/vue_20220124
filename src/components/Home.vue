@@ -89,7 +89,6 @@ export default {
             console.log(response.data);
             if(response.data.status===200){
                 state.items = response.data.result;
-                console.log(response.data);
                 console.log(state.items)
 
                 // // 15 % 4 => 3 => 1

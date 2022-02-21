@@ -13,10 +13,11 @@
 
       <el-menu-item index="/">Home</el-menu-item>
       <el-menu-item v-show="logged === false" index="/login">Login</el-menu-item>
+      <el-menu-item v-show="logged === false" index="/join">Join</el-menu-item>
       <el-menu-item v-show="logged === true" index="/logout">Logout</el-menu-item>
-      <el-menu-item v-show="logged === true" index="/seller">Seller</el-menu-item>
-      <el-menu-item v-show="logged === true" index="/mypage">Mypage</el-menu-item>
-      <el-menu-item index="/join">Join</el-menu-item>
+      <el-menu-item v-show="logged === true && urole === 'Seller'" index="/seller">Seller</el-menu-item>
+      <el-menu-item v-show="logged === true && urole === 'Customer'" index="/mypage">Mypage</el-menu-item>
+      <el-menu-item v-show="logged === false" index="/join">Join</el-menu-item>
       <el-menu-item index="/cart">Cart</el-menu-item>
       <el-menu-item index="/board">Board</el-menu-item>
       <el-menu-item index="/admin">Admin</el-menu-item>
@@ -25,7 +26,7 @@
 
     <div v-if="logged === true">{{uid}}, {{uname}}님 로그인</div> 
 
-    {{menu}}, {{logged}}
+    {{menu}}, {{logged}}, {{urole}}
 
     <router-view></router-view>
 
@@ -45,21 +46,31 @@ export default {
     // store값 가져오기
     // store의 menu 값 실시간으로 확인
     // 마지막으로 방문한 페이지를 session저장소에 보관 후에 반환
+    // 메뉴
     const menu = computed(() =>{
       return store.getters.getMenu
     });
 
     // store의 logged값 실시간으로 확인
+    // 로그인 상태 (로그인T, 로그아웃F)
     const logged = computed(() => {
       return store.getters.getLogged
     });
 
+    // 아이디 정보 (로그인시에 정보 추가, 로그아웃시 정보제거)
     const uid = computed(() => {
       return store.getters.getUid
     });
 
+    // 이름 (로그인시에 정보 추가, 로그아웃시 정보제거)
     const uname = computed(() => {
       return store.getters.getUname
+    });
+
+    // 권한 (로그인시에 정보 추가, 로그아웃시 정보제거)
+    // Seller, Customer
+    const urole = computed(() => {
+      return store.getters.getUrole
     });
 
 
@@ -99,7 +110,7 @@ export default {
     })
     */
 
-    return {menu, logged, handleSelect, state, uname, uid}
+    return {menu, logged, handleSelect, state, uname, uid, urole}
   }
 }
 </script>

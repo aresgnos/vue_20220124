@@ -13,10 +13,14 @@ const stores= createStore({
         uid : '', // 로그인한 사용자의 이메일 정보
         uname : '', // 로그인한 사용자의 이름
         token : '', // 토큰을 저장소에 보관하지 않고 사용
+        urole : ''
     },
 
     // 가져가기 (getter)
     getters : {
+        getUrole(state) {
+            return state.urole;
+        },
         getUid(state) {
             return state.uid;
         },
@@ -35,6 +39,10 @@ const stores= createStore({
     // value => 변경할 값이 와야한다. 변경할 요소가 많으면 뒤에 추가 가능
     // ex) (state, value, value ...)
     mutations : {
+        setUrole(state, value) {
+            console.log('store/setUrole', value); // 들어가는지 확인
+            state.urole = value;
+        },
         setUid(state, value) {
             state.uid = value;
         },
@@ -51,6 +59,7 @@ const stores= createStore({
 
     // 변경하기 (action) : 기다려야 되는 상황
     // 백엔드 연동이 필요한 경우임
+    // F5를 눌러도 유지
     actions : {
         async handleData(context, payload){
             console.log(payload);
@@ -62,10 +71,13 @@ const stores= createStore({
                     "token" : token
                 }
                 const response = await axios.get(url, {headers:headers});
+                console.log('store/index.js/handleData', response.data);
                 if(response.data.status === 200) {
                     // mutations의 setUid, setUname을 호출해서 내용변경
                     context.commit("setUid", response.data.uid);
                     context.commit("setUname", response.data.uname);
+                    context.commit("setUrole", response.data.urole);
+                    context.commit("setLogged", true);
                 }
                 else{
                     // 토큰의 유효성을 검사하여 통과하지 못하는 경우(토큰만료, 오류, 유효하지 않는 토큰..)
